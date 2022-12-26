@@ -1,0 +1,297 @@
+        /* SIGNIN CSS */
+
+        .align-center {
+            text-align: center;
+        }
+
+        .add-border {
+            border: 2px solid black;
+        }
+
+        .admin-signin-panel .input-form {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .add-hcp-form {
+            height: auto !important;
+        }
+
+        .hide {
+            display: none
+        }
+
+        .show {
+            display: block
+        }
+
+
+        /* DETAILS CSS */
+
+
+        :root {
+            --dark: #002868;
+            --darklight: #147401;
+            --light: #8b89d6;
+            --background: #DFEFFC;
+            --black: #000;
+            --white: #fff;
+            --lightgray: #c3c3c3;
+            --verylightgray: #F2F5F9;
+
+        }
+
+        .left {
+            width: 11%;
+            background: var(--verylightgray);
+            float: left;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .right {
+            width: 88%;
+            float: right
+        }
+
+        * {
+            font-family: sans-serif;
+        }
+
+        .head {
+            color: var(--dark)
+        }
+
+        .head-3 {
+            color: var(--light);
+        }
+
+        .head-3 span {
+            color: var(--black);
+        }
+
+        .background {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 10px
+        }
+
+        .background-light {
+            background-color: var(--lightgray) !important;
+            color: var(--dark);
+            padding: 10px
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table tr td {
+            padding: 10px;
+        }
+
+        table .edit b {
+            vertical-align: sub;
+        }
+
+        .button-view {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 2px 8px;
+            font-size: 14px;
+        }
+
+        .button-view.darklight{
+            background-color: var(--darklight);
+        }
+
+        .button-empty {
+            padding: 10px 20px
+        }
+
+        .cnt-search {
+            float: right;
+            margin-bottom: 10px
+        }
+
+        .cnt-search * {
+            height: 25px;
+            border: var(--lightgray) 1px solid;
+        }
+
+        .cnt-search button {
+            height: 30px;
+        }
+
+        .cnt-search table {
+            margin-top: 20px
+        }
+
+
+        .cnt-bottom table tr:nth-child(odd) {
+            background: var(--verylightgray);
+
+        }
+
+        .cnt-bottom table tr td {
+            padding: 10px;
+            text-align: center
+        }
+
+        .table-heading td {
+            padding: 10px !important;
+            text-align: center;
+        }
+
+
+        .table-heading * {
+            margin: 3px
+        }
+
+
+        .cnt-pagination {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .cnt-pagination span {
+            color: var(--dark);
+            font-weight: 600
+        }
+
+        .cnt-pagination button {
+            background: var(--white);
+            color: var(--light);
+            border: var(--verylightgray) 1px solid;
+        }
+
+        .cnt-pagination button.dark {
+            background: var(--verylightgray);
+            color: var(--dark);
+        }
+
+
+        .navigation ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: var(--dark);
+            color: var(--white);
+        }
+
+
+        .navigation li {
+            float: left;
+            font-size: 20px;
+            font-color: purple;
+
+        }
+
+        .navigation li:last-child {
+            float: right;
+            border-right: none;
+            font-size: 17px;
+            color: var(--white);
+            padding-right: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            margin-top: 10px;
+
+        }
+
+        .navigation li:first-child {
+            background: dark;
+            padding: 5px 10px;
+            margin-top: 7px
+        }
+
+        .navigation li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+
+
+        .navigation li a:hover:not(.active) {
+            background-color: #111;
+        }
+
+        .navigation .active {
+            background-color: #4CAF50;
+        }
+
+        .logo-img {
+            display: block;
+            height: 95px;
+            margin: 0 auto;
+        }
+
+        .main-heading {
+            /* width: 64% !important; */
+            text-align: center;
+            /* margin-top: 18px; */
+        }
+
+        .heading-row {
+            background: lightgray;
+        }
+
+        .enhanced {
+            width: 100px;
+            border: 1px solid lightgray;
+            border-radius: 12px;
+            font-weight: bold;
+            padding: 10px 0;
+        }
+
+        .btn-signout {
+            cursor: pointer
+        }
+
+        .navigation ul {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-back {
+            position: absolute;
+            top: 90px;
+            left: 10px;
+        }
+
+
+        /* FIXING LAYOUT ISSUES */
+
+        .hcp_name-container {
+            width: 16vw;
+        }
+
+        #address-line-1,
+        #address-line-2 {
+            height: 10vh;
+            max-width: 10vw;
+        }
+
+        .c-red {
+            color: red;
+        }
+
+
+        .welcome-msg {
+            display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    gap:10px;
+    margin-top: 10px;
+        }
