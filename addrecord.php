@@ -1,16 +1,7 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-
-try {
-    $conn = new PDO("mysql:host=$servername;dbname=consentmgt", $username, $password);
-    // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-} catch (PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
-}
+require_once './connection.php';
+$database = new VH_Database();
+$conn = $database->vh_create_connection();
 
 $current_id = $_GET['ID'] ?? 1;
 
@@ -40,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         
         if(empty($errors)==true){
-           move_uploaded_file($file_tmp,"docs/".$file_name);
+           move_uploaded_file($file_tmp,"assets/docs/".$file_name);
         }else{
            print_r($errors);
         }
@@ -96,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="navigation">
             <ul>
-                <li><img height="60" src="https://i.postimg.cc/q42Syqqb/thumbnail.png?dl=1" /></li>
+                <li><img height="60" src="https://i.postimg.cc/q42Syqqb/assets/imgs/thumbnail.PNG?dl=1" /></li>
 
                 <li class="main-heading">
                     <h2>HCP Consent Management Console</h>
@@ -118,13 +109,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="input-form">
 
-            <img src="imgs/left.PNG" height="250" width="300" />
+            <img src="assets/imgs/left.PNG" height="250" width="300" />
 
 
             <form class="form-signin w-50" method="post" action="addrecord.php" enctype="multipart/form-data">
 
 
-                <img class="logo-img" src="thumbnail.PNG" />
+                <img class="logo-img" src="assets/imgs/thumbnail.PNG" />
                 <h1 class="h3 mb-3  align-center"><b>ADD RECORD</b></h1>
 
 
@@ -165,7 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             </form>
 
-            <img src="imgs/right.PNG" height="250" width="300" />
+            <img src="assets/imgs/right.PNG" height="250" width="300" />
 
 
         </div>
@@ -198,13 +189,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
 
     <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
+     https://firebase.google.com/assets/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
 
 
-    <script src="config.js"></script>
+    <script src="assets/js/config.js"></script>
 
-    <script src="app.js"></script>
+    <script src="assets/js/app.js"></script>
 
 </body>
 

@@ -1,30 +1,18 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-
-try {
-    $conn = new PDO("mysql:host=$servername;dbname=consentmgt", $username, $password);
-    // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-} catch (PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
-}
+require_once './connection.php';
+$database = new VH_Database();
+$conn = $database->vh_create_connection();
 
 $current_id = $_GET['ID'] ?? 1;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
- 
-    $sql = "UPDATE `HCP` SET `IsDeleted`='1' WHERE VHID = '" . $_POST['hcp-id']. "'";
-
-    try { 
+    $sql = "UPDATE `HCP` SET `IsDeleted`='1' WHERE VHID = '" . $_POST['hcp-id'] . "'";
+    try {
         $conn->exec($sql);
     } catch (PDOException $e) {
         echo $sql . "<br>" . $e->getMessage();
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -39,12 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <link rel="stylesheet" href="style.css">
     </link>
-    
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
@@ -63,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="navigation">
             <ul>
-                <li><img height="60" src="https://i.postimg.cc/q42Syqqb/thumbnail.png?dl=1" /></li>
+                <li><img height="60" src="https://i.postimg.cc/q42Syqqb/assets/imgs/thumbnail.PNG?dl=1" /></li>
 
                 <li class="main-heading">
                     <h2>HCP Consent Management Console</h>
@@ -112,62 +99,62 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <tr>
 
                             <td class="hcp_name-container">
-                                    <select data-id="select_hcp_name" id="select_hcp_name" name="status">
+                                <select data-id="select_hcp_name" id="select_hcp_name" name="status">
 
-                                        <?php
+                                    <?php
                                     $sql = "SELECT VHID,Name FROM HCP WHERE IsDeleted = 0 AND VHID = " . $current_id;
                                     $result = $conn->query($sql);
 
                                     if ($result->rowCount() > 0) {
                                         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                                     ?>
-                                        <option value="<?php echo $row["VHID"] ?>"><?php echo $row["Name"] ?></option>
-                                        <?php
+                                            <option value="<?php echo $row["VHID"] ?>"><?php echo $row["Name"] ?></option>
+                                    <?php
                                         }
                                     }
                                     ?>
-                                        <?php
+                                    <?php
                                     $sql = "SELECT VHID,Name FROM HCP WHERE IsDeleted = 0 AND NOT VHID = " . $current_id;
                                     $result = $conn->query($sql);
 
                                     if ($result->rowCount() > 0) {
                                         while ($row1 = $result->fetch(PDO::FETCH_ASSOC)) {
                                     ?>
-                                        <option value="<?php echo $row1["VHID"] ?>"><?php echo $row1["Name"] ?></option>
-                                        <?php
+                                            <option value="<?php echo $row1["VHID"] ?>"><?php echo $row1["Name"] ?></option>
+                                    <?php
                                         }
                                     }
-                                                ?>
-                                    </select>
+                                    ?>
+                                </select>
 
                                 </form>
                             </td>
 
                             <td><select data-id="select_hcp_name" name="lic-list">
                                     <?php
-                                $sql = "SELECT VHID,License  FROM HCP WHERE IsDeleted = 0 AND VHID = " . $current_id;
-                                $result = $conn->query($sql);
+                                    $sql = "SELECT VHID,License  FROM HCP WHERE IsDeleted = 0 AND VHID = " . $current_id;
+                                    $result = $conn->query($sql);
 
-                                if ($result->rowCount() > 0) {
-                                    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                                ?>
-                                    <option value="<?php echo $row["VHID"] ?>"><?php echo $row["License"] ?></option>
+                                    if ($result->rowCount() > 0) {
+                                        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                                    ?>
+                                            <option value="<?php echo $row["VHID"] ?>"><?php echo $row["License"] ?></option>
                                     <?php
+                                        }
                                     }
-                                }
-                                ?>
+                                    ?>
                                     <?php
-                                $sql = "SELECT VHID,License FROM HCP WHERE NOT VHID = " . $current_id;
-                                $result = $conn->query($sql);
+                                    $sql = "SELECT VHID,License FROM HCP WHERE NOT VHID = " . $current_id;
+                                    $result = $conn->query($sql);
 
-                                if ($result->rowCount() > 0) {
-                                    while ($row2 = $result->fetch(PDO::FETCH_ASSOC)) {
-                                ?>
-                                    <option value="<?php echo $row2["VHID"] ?>"><?php echo $row2["License"] ?></option>
+                                    if ($result->rowCount() > 0) {
+                                        while ($row2 = $result->fetch(PDO::FETCH_ASSOC)) {
+                                    ?>
+                                            <option value="<?php echo $row2["VHID"] ?>"><?php echo $row2["License"] ?></option>
                                     <?php
+                                        }
                                     }
-                                }
-                                            ?>
+                                    ?>
                                 </select></td>
 
 
@@ -183,11 +170,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     if ($result->rowCount() > 0) {
                                         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                                     ?>
-                                    <option value="<?php echo $row["ID"] ?>"><?php echo $row["Description"] ?></option>
+                                            <option value="<?php echo $row["ID"] ?>"><?php echo $row["Description"] ?></option>
                                     <?php
                                         }
                                     }
-                                            ?>
+                                    ?>
                                 </select>
                             </td>
 
@@ -201,12 +188,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             ?>
 
 
-                            <td id="hcp-email"><?php echo $row["Email"] ?></td>
+                                    <td id="hcp-email"><?php echo $row["Email"] ?></td>
 
 
-                            <td id="last-date"><?php echo $row["Date"] ?></td>
-                            <td id="last-uid"><?php echo $row["Username"] ?></td>
-                            <td id="contact-phone"><?php echo $row["Phone"] ?></td>
+                                    <td id="last-date"><?php echo $row["Date"] ?></td>
+                                    <td id="last-uid"><?php echo $row["Username"] ?></td>
+                                    <td id="contact-phone"><?php echo $row["Phone"] ?></td>
 
                         </tr>
 
@@ -269,11 +256,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </td>
 
                             <td>
-                                <a href="edithcp.php?ID=<?php echo $row["VHID"]?>" class="btn button-view enhanced">Edit HCP</a>
+                                <a href="edithcp.php?ID=<?php echo $row["VHID"] ?>" class="btn button-view enhanced">Edit HCP</a>
                             </td>
 
                             <td>
-                                <a href="addhcp.php"  class="btn button-view enhanced">Add HCP</a>
+                                <a href="addhcp.php" class="btn button-view enhanced">Add HCP</a>
                             </td>
 
                             <td>
@@ -284,16 +271,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </td>
 
                             <td>
-                                <a href="addrecord.php?ID=<?php echo $row["VHID"]?>" class="btn button-view enhanced darklight">Add Record</a>
+                                <a href="addrecord.php?ID=<?php echo $row["VHID"] ?>" class="btn button-view enhanced darklight">Add Record</a>
                             </td>
 
                         </tr>
 
 
-                        <?php
+                <?php
                                 }
                             }
-                            ?>
+                ?>
 
                     </table>
                 </div>
@@ -342,31 +329,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                         <tbody>
-                            
 
-                        <?php
+
+                            <?php
                             $sqll = "SELECT * FROM HCP_History as hh INNER JOIN GeneralConsentStatus as gcs ON hh.GeneralConsentStatusID = gcs.ID WHERE HCPID = " . $current_id;
                             $resultt = $conn->query($sqll);
 
-                        if ($result->rowCount() > 0) {
-                            while ($roww = $resultt->fetch(PDO::FETCH_ASSOC)) {
-                        ?>
+                            if ($result->rowCount() > 0) {
+                                while ($roww = $resultt->fetch(PDO::FETCH_ASSOC)) {
+                            ?>
 
-               
-                        <tr>
-                            <td><?php echo $roww["Date"]?></td>
-                            <td><?php echo $roww["Description"]?></td>
-                            <td><?php echo $roww["IssuedBy"]?></td>
-                            <td><?php echo $roww["HCPID"]?></td>
-                            <td><?php echo $roww["RecordID"]?></td>
-                            <td><a target="_blank" href="docs/<?php echo $roww["SupportingDocumentPath"]?>">Document</td>
-                            <td><?php echo $roww["Comment"]?></td>
-                        </tr>
-      
-                        <?php
+
+                                    <tr>
+                                        <td><?php echo $roww["Date"] ?></td>
+                                        <td><?php echo $roww["Description"] ?></td>
+                                        <td><?php echo $roww["IssuedBy"] ?></td>
+                                        <td><?php echo $roww["HCPID"] ?></td>
+                                        <td><?php echo $roww["RecordID"] ?></td>
+                                        <td><a target="_blank" href="assets/docs/<?php echo $roww["SupportingDocumentPath"] ?>">Document</td>
+                                        <td><?php echo $roww["Comment"] ?></td>
+                                    </tr>
+
+                            <?php
                                 }
                             }
-                        ?>
+                            ?>
                         </tbody>
                     </table>
 
@@ -391,15 +378,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
@@ -412,13 +393,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
 
     <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
+     https://firebase.google.com/assets/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
 
 
-    <script src="config.js"></script>
+    <script src="assets/js/config.js"></script>
 
-    <script src="app.js"></script>
+    <script src="assets/js/app.js"></script>
 
 </body>
 

@@ -1,16 +1,7 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-
-try {
-    $conn = new PDO("mysql:host=$servername;dbname=consentmgt", $username, $password);
-    // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-} catch (PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
-}
+require_once './connection.php';
+$database = new VH_Database();
+$conn = $database->vh_create_connection();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // collect value of input field
@@ -30,10 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $sql = "INSERT INTO `HCP`( `Name`, `License`, `GeneralConsentStatusID`, `Email`, `Date`, `Username`, `Phone`, `AddressLine1`, `AddressLine2`, `City`, `Country`, `StateProvince`, `PostalCode`, `Comment`) VALUES ('" . $name . "','" . $lic . "','" . $status . "','" . $email . "','" . $date . "','test','" . $phone . "','" . $add1 . "','" . $add2 . "','" . $city . "','" . $country . "','" . $state . "','" . $postal . "','" . $comment . "')";
 
-
-    
-
-    try { 
+    try {
         $conn->exec($sql);
         echo '<script>
                     alert("HCP has been added")
@@ -41,8 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } catch (PDOException $e) {
         echo $sql . "<br>" . $e->getMessage();
     }
-
-
 }
 
 ?>
@@ -53,14 +39,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 
 <head>
-
-
-
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <link rel="stylesheet" href="style.css">
     </link>
@@ -79,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="navigation">
             <ul>
-                <li><img height="60" src="https://i.postimg.cc/q42Syqqb/thumbnail.png?dl=1" /></li>
+                <li><img height="60" src="https://i.postimg.cc/q42Syqqb/assets/imgs/thumbnail.PNG?dl=1" /></li>
 
                 <li class="main-heading">
                     <h2>HCP Consent Management Console</h>
@@ -101,19 +82,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="input-form add-hcp-form">
 
-            <img src="imgs/left.PNG" height="250" width="300" />
+            <img src="assets/imgs/left.PNG" height="250" width="300" />
 
 
             <form class="form-signin w-50" method="post" action="addhcp.php">
 
-                <img class="logo-img" src="thumbnail.PNG" />
+                <img class="logo-img" src="assets/imgs/thumbnail.PNG" />
                 <h1 class="h3 mb-3  align-center"><b>ADD HCP</b></h1>
 
 
                 <div class="form-group">
                     <label for="User Name">HCP Name <span class="c-red">*</span></label>
-                    <input name="hcp-name" type="text" class="form-control" id="hcp-name"
-                        placeholder="Example: Anna Maria">
+                    <input name="hcp-name" type="text" class="form-control" id="hcp-name" placeholder="Example: Anna Maria">
                 </div>
 
 
@@ -124,8 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="form-group">
                     <label for="User ID">Email <span class="c-red">*</span></label>
-                    <input name="hcp-email" type="text" class="form-control" id="hcp-emaill"
-                        placeholder="Example: annamaria@gmail.com">
+                    <input name="hcp-email" type="text" class="form-control" id="hcp-emaill" placeholder="Example: annamaria@gmail.com">
                 </div>
 
                 <!-- <div class="form-group">
@@ -135,8 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="form-group">
                     <label for="Self LIC">Self LIC <span class="c-red">*</span></label>
-                    <input name="hcp-lic" type="text" class="form-control" id="hcp-selflic"
-                        placeholder="Example: 3084141">
+                    <input name="hcp-lic" type="text" class="form-control" id="hcp-selflic" placeholder="Example: 3084141">
                 </div>
 
 
@@ -157,22 +135,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="form-group">
                     <label for="User Phone">Phone <span class="c-red">*</span></label>
-                    <input name="hcp-phone" type="text" class="form-control" id="hcp-phonee"
-                        placeholder="Example: +1-541-754-3010	">
+                    <input name="hcp-phone" type="text" class="form-control" id="hcp-phonee" placeholder="Example: +1-541-754-3010	">
                 </div>
 
 
 
                 <div class="form-group">
                     <label for="Address Line 1">Address Line 1</label>
-                    <input name="hcp-add1" type="text" class="form-control" id="hcp-address11"
-                        placeholder="Example: Via Alessandro Manzoni 85">
+                    <input name="hcp-add1" type="text" class="form-control" id="hcp-address11" placeholder="Example: Via Alessandro Manzoni 85">
                 </div>
 
                 <div class="form-group">
                     <label for="Address Line 2">Address Line 2</label>
-                    <input name="hcp-add2" type="text" class="form-control" id="hcp-address22"
-                        placeholder="Example: Diabala district">
+                    <input name="hcp-add2" type="text" class="form-control" id="hcp-address22" placeholder="Example: Diabala district">
                 </div>
 
 
@@ -183,28 +158,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="form-group">
                     <label for="State-Province">State/Province <span class="c-red">*</span></label>
-                    <input name="hcp-state" type="text" class="form-control" id="hcp-stateprovince"
-                        placeholder="Example: Pavia">
+                    <input name="hcp-state" type="text" class="form-control" id="hcp-stateprovince" placeholder="Example: Pavia">
                 </div>
 
 
                 <div class="form-group">
                     <label for="Postal Code">Postal Code <span class="c-red">*</span></label>
-                    <input name="hcp-postal" type="text" class="form-control" id="hcp-postalcode"
-                        placeholder="Example: 27040">
+                    <input name="hcp-postal" type="text" class="form-control" id="hcp-postalcode" placeholder="Example: 27040">
                 </div>
 
 
                 <div class="form-group">
                     <label for="Country">Country <span class="c-red">*</span></label>
-                    <input name="hcp-country" type="text" class="form-control" id="hcp-country"
-                        placeholder="Example: Italy">
+                    <input name="hcp-country" type="text" class="form-control" id="hcp-country" placeholder="Example: Italy">
                 </div>
 
                 <div class="form-group">
                     <label for="Comments">Comments</label>
-                    <input name="hcp-comment" type="text" class="form-control" id="hcp-comments"
-                        placeholder="Example: This is a comment">
+                    <input name="hcp-comment" type="text" class="form-control" id="hcp-comments" placeholder="Example: This is a comment">
                 </div>
 
 
@@ -215,7 +186,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             </form>
 
-            <img src="imgs/right.PNG" height="250" width="300" />
+            <img src="assets/imgs/right.PNG" height="250" width="300" />
 
 
         </div>
@@ -227,15 +198,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
@@ -248,13 +213,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
 
     <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
+     https://firebase.google.com/assets/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
 
 
-    <script src="config.js"></script>
+    <script src="assets/js/config.js"></script>
 
-    <script src="app.js"></script>
+    <script src="assets/js/app.js"></script>
 
 </body>
 
