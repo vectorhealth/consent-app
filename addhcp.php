@@ -50,11 +50,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body onload="loaded()">
 
-
-
-
-
-
     <!-- ADD HCP NAME -->
     <div class="admin-signin-panel mb-3">
 
